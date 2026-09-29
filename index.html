@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Penielle Atto - Portfolio Chic</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{--rose:#FF8FAB;--rose2:#FFC2D1;--bg:#0A0A0A;--card:#161616}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:#fff;overflow-x:hidden}
+.script{font-family:'Dancing Script',cursive}
+#progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--rose),var(--rose2));width:0;z-index:100}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);z-index:98;opacity:0;pointer-events:none;transition:.3s}
+#overlay.show{opacity:1;pointer-events:auto}
+#sidebar{position:fixed;top:0;right:0;width:78%;max-width:320px;height:100%;background:#111;border-left:1px solid rgba(255,143,171,.15);z-index:99;transform:translateX(100%);transition:.4s;padding:24px;display:flex;flex-direction:column}
+#sidebar.open{transform:translateX(0)}
+.link{display:flex;gap:12px;align-items:center;color:#fff;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}
+.fade{opacity:0;transform:translateY(24px);transition:.9s}
+.fade.show{opacity:1;transform:translateY(0)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--rose);color:#000;padding:12px 22px;border-radius:999px;font-size:11px;font-weight:700;z-index:101;opacity:0;transition:.45s}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.social{width:42px;height:42px;border-radius:999px;background:var(--card);border:1px solid rgba(255,255,255,.08);display:grid;place-items:center;color:#fff;text-decoration:none;transition:.35s}
+.social:hover{transform:translateY(-3px);background:var(--rose);color:#000}
+.social.whatsapp:hover{background:#25D366;color:#fff}
+.animated-bg{position:relative;isolation:isolate;overflow:hidden;background:#050505}
+.glow-orb{position:absolute;border-radius:50%;filter:blur(55px);pointer-events:none}
+.orb1{width:420px;height:420px;background:radial-gradient(circle, rgba(255,143,171,.35), transparent 70%);top:-10%;left:-5%;animation:float1 10s ease-in-out infinite alternate}
+.orb2{width:360px;height:360px;background:radial-gradient(circle, rgba(255,194,209,.25), transparent 70%);bottom:5%;right:-5%;animation:float2 12s ease-in-out infinite alternate}
+.orb3{width:650px;height:650px;background:radial-gradient(circle, rgba(255,143,171,.08), transparent 70%);top:20%;left:35%;animation:float3 16s ease-in-out infinite alternate}
+@keyframes float1{0%{transform:translate(0,0)}100%{transform:translate(40px,40px)}}
+@keyframes float2{0%{transform:translate(0,0)}100%{transform:translate(-50px,-30px)}}
+@keyframes float3{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-20px,20px) scale(1.08)}}
+.bokeh-ray{position:absolute;width:140%;height:160px;top:15%;left:-20%;background:linear-gradient(100deg, transparent, rgba(255,143,171,.12), rgba(255,194,209,.2), transparent);filter:blur(28px);transform:rotate(-12deg);animation:rayMove 9s ease-in-out infinite alternate;z-index:1}
+.bokeh-ray.two{top:58%;height:240px;animation-duration:13s}
+@keyframes rayMove{0%{transform:rotate(-12deg) translateX(-6%)}100%{transform:rotate(-10deg) translateX(8%)}}
+.animated-bg::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,143,171,.6) 1px, transparent 2px), radial-gradient(rgba(255,255,255,.25).8px, transparent 1.5px);background-size:130px 130px, 200px 200px;opacity:.18;animation:stars 90s linear infinite;z-index:2}
+@keyframes stars{from{transform:translateY(0)}to{transform:translateY(-200px)}}
+.type-box{background:rgba(255,143,171,.12);border:1px solid rgba(255,143,171,.25);padding:9px 16px;border-radius:999px;display:inline-block;min-width:260px;margin-top:12px}
+#type{color:var(--rose);font-size:12px;font-weight:600}
+#type::after{content:'|';animation:blink .8s infinite;margin-left:2px}
+@keyframes blink{50%{opacity:0}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="overlay" onclick="toggleMenu()"></div>
+<div id="sidebar">
+<div style="display:flex;justify-content:space-between"><b style="letter-spacing:5px">PA</b><button onclick="toggleMenu()" style="width:32px;height:32px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:transparent;color:#fff;cursor:pointer"><i class="fa-solid fa-xmark"></i></button></div>
+<nav style="margin-top:30px;display:flex;flex-direction:column">
+<a href="#accueil" onclick="toggleMenu()" class="link"><i class="fa-solid fa-house"></i> Accueil</a>
+<a href="#apropos" onclick="toggleMenu()" class="link"><i class="fa-solid fa-user"></i> À propos</a>
+<a href="#competences" onclick="toggleMenu()" class="link"><i class="fa-solid fa-star"></i> Compétences</a>
+<a href="#projets" onclick="toggleMenu()" class="link"><i class="fa-solid fa-briefcase"></i> Projets</a>
+<a href="#contact" onclick="toggleMenu()" class="link"><i class="fa-solid fa-envelope"></i> Contact</a>
+</nav>
+<div style="margin-top:auto;display:flex;gap:10px">
+<a href="https://wa.me/225566190469" target="_blank" class="social whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+<a href="https://www.tiktok.com/@penielle.atto" target="_blank" class="social"><i class="fa-brands fa-tiktok"></i></a>
+<a href="https://github.com/penielleatto" target="_blank" class="social"><i class="fa-brands fa-github"></i></a>
+</div>
+</div>
+<header style="position:fixed;top:0;width:100%;z-index:40;background:rgba(10,10,10,.85);backdrop-filter:blur(14px);padding:14px 20px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06)">
+<b style="letter-spacing:4px">PA</b>
+<button onclick="toggleMenu()" style="background:transparent;border:none;color:#fff;font-size:18px;cursor:pointer"><i class="fa-solid fa-bars"></i></button>
+</header>
+<div id="toast" class="toast"></div>
+<section id="accueil" class="animated-bg hero-chic">
+  <div class="bokeh-ray"></div><div class="bokeh-ray two"></div>
+  <div class="glow-orb orb1"></div><div class="glow-orb orb2"></div><div class="glow-orb orb3"></div>
+  <div class="hero-layout">
+    <div class="hero-content">
+      <span class="badge-chic"><i class="fa-solid fa-sparkles"></i> PORTFOLIO 2026 • ABIDJAN</span>
+      <h1>PENIELLE<br><span>ATTO</span></h1>
+      <div class="type-box"><span id="type"></span></div>
+      <p>Je crée des expériences web chic, modernes et utiles. BTS IDA • @penielle.atto</p>
+<div style="display:flex;gap:10px;margin-top:22px;flex-wrap:wrap">
+  <a href="#projets" class="btn-hero">Voir mes projets <i class="fa-solid fa-arrow-right" style="margin-left:6px"></i></a>
+  <a href="https://wa.me/225566190469" target="_blank" class="btn-hero-outline"><i class="fa-brands fa-whatsapp"></i></a>
+  <a href="Cv.pdf"download="CV.pdf" style="display:inline-flex;align-items:center;gap:8px;padding:13px 22px;background:transparent;border:1px solid rgba(255,143,171,.35);color:#FFC2D1;border-radius:999px;text-decoration:none;font-weight:700;font-size:11px"><i class="fa-solid fa-download"></i> Télécharger CV</a>
+</div>
+    </div>
+    <div class="hero-image-wrap">
+      <div class="circle-halo"></div><div class="circle-ring"></div><div class="circle-ring two"></div>
+      <div class="circle-photo"><img src="penielle.jpg" alt="Penielle Atto"></div>
+      <div class="float-badge"><i class="fa-solid fa-code"></i> Disponible stage</div>
+    </div>
+  </div>
+</section>
+<style>
+.hero-chic{min-height:100vh;display:flex;align-items:center;padding:110px 20px 50px}
+.hero-layout{position:relative;z-index:10;width:100%;max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:34px;align-items:center}
+.badge-chic{display:inline-flex;gap:6px;align-items:center;border:1px solid rgba(255,143,171,.3);background:rgba(255,143,171,.08);padding:7px 14px;border-radius:999px;font-size:8px;letter-spacing:1.8px;color:#FFC2D1}
+.hero-content{width:100%;text-align:left}
+.hero-content h1{font-size:48px;line-height:.9;margin:18px 0;letter-spacing:-1.5px;font-weight:900}
+.hero-content h1 span{background:linear-gradient(90deg,#FF8FAB,#FFC2D1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-content p{color:rgba(255,255,255,.5);font-size:12.5px;line-height:1.6;margin-top:14px;max-width:360px}
+.btn-hero{display:inline-flex;padding:13px 26px;background:linear-gradient(135deg,#FF8FAB,#FFC2D1);color:#000;border-radius:999px;text-decoration:none;font-weight:800;font-size:11px;box-shadow:0 12px 32px rgba(255,143,171,.3)}
+.btn-hero-outline{width:44px;height:44px;display:grid;place-items:center;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;text-decoration:none}
+.hero-image-wrap{position:relative;width:290px;height:290px;display:grid;place-items:center;flex-shrink:0}
+.circle-halo{position:absolute;width:100%;height:100%;background:radial-gradient(circle, rgba(255,143,171,.45) 0%, rgba(255,143,171,.15) 40%, transparent 70%);filter:blur(20px);border-radius:50%;animation:pulseHalo 3s ease-in-out infinite}
+@keyframes pulseHalo{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.18);opacity:1}}
+.circle-ring{position:absolute;width:108%;height:108%;border:1px dashed rgba(255,143,171,.35);border-radius:50%;animation:spin 18s linear infinite}
+.circle-ring.two{width:120%;height:120%;border:1px solid rgba(255,255,255,.06);border-top-color:var(--rose);border-right-color:var(--rose2);animation:spin 10s linear infinite reverse}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.circle-photo{position:relative;width:92%;height:92%;border-radius:50%;overflow:hidden;border:3px solid rgba(255,143,171,.4);box-shadow:0 0 0 8px rgba(255,143,171,.08),0 20px 60px rgba(0,0,0,.6),0 0 50px rgba(255,143,171,.35);z-index:2}
+.circle-photo img{width:100%;height:100%;object-fit:cover;object-position:top;transform:scale(1.05);transition:.6s}
+.float-badge{position:absolute;bottom:8%;left:-6%;background:#fff;color:#000;padding:8px 14px;border-radius:999px;font-size:9px;font-weight:800;box-shadow:0 8px 25px rgba(0,0,0,.3);display:flex;align-items:center;gap:6px;z-index:5;animation:floatBadge 3s ease-in-out infinite}
+@keyframes floatBadge{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media(min-width:900px){.hero-chic{padding:0 60px;min-height:92vh}.hero-layout{flex-direction:row;justify-content:space-between;gap:60px}.hero-content h1{font-size:74px}.hero-image-wrap{width:400px;height:400px}}
+</style>
+<section id="apropos" style="background:#FFF5F7;color:#0A0A0A;border-radius:36px 36px 0 0;padding:36px 20px;position:relative">
+<p style="color:var(--rose);font-weight:800;font-size:11px;letter-spacing:2px">02 • À PROPOS</p>
+<h2 class="script" style="font-size:34px;color:#0A0A0A;margin-top:4px">À propos de <span style="color:var(--rose)">moi</span></h2>
+<div style="display:grid;grid-template-columns:1fr;gap:26px;margin-top:24px;align-items:center;max-width:1100px;margin-inline:auto" class="about-grid">
+<div style="position:relative;border-radius:26px;overflow:hidden;height:360px;transform:rotate(-1.5deg);box-shadow:0 20px 60px rgba(0,0,0,.15)">
+<img src="about-penielle.jpg" style="width:100%;height:100%;object-fit:cover;scale:1.3;object-position:top">
+<div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(255,143,171,.28),transparent 60%)"></div>
+<div style="position:absolute;bottom:14px;left:14px;background:#fff;padding:8px 14px;border-radius:999px;font-size:9px;font-weight:800;color:#000"><i class="fa-solid fa-sparkles" style="color:var(--rose)"></i> Disponible pour stage</div>
+</div>
+<div>
+<div style="background:#fff;border-radius:22px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.06)">
+<p style="font-size:12.5px;color:rgba(0,0,0,.68);line-height:1.8">Je suis <b>Penielle Atto</b>, passionnée par le développement web. En BTS IDA, je crée des applications utiles et modernes.</p>
+<div style="display:flex;gap:10px;margin-top:18px">
+<div style="background:rgba(255,143,171,.14);padding:12px 14px;border-radius:16px;flex:1;text-align:center"><b style="font-size:18px;color:var(--rose);display:block">2+</b><span style="font-size:8px">PROJETS</span></div>
+<div style="background:#0A0A0A;padding:12px 14px;border-radius:16px;flex:1;text-align:center"><b style="font-size:18px;color:#fff;display:block">BTS</b><span style="font-size:8px;color:rgba(255,255,255,.5)">IDA 2024-26</span></div>
+<div style="background:rgba(255,143,171,.14);padding:12px 14px;border-radius:16px;flex:1;text-align:center"><b style="font-size:18px;color:var(--rose);display:block">ABJ</b><span style="font-size:8px">CI</span></div>
+</div>
+</div>
+</div>
+</div>
+<style>@media(min-width:900px){.about-grid{grid-template-columns:420px 1fr!important} #apropos{padding:60px!important}}</style>
+</section>
+<section id="competences" class="fade animated-bg" style="padding:34px 20px">
+<div class="bokeh-ray"></div>
+<p style="color:var(--rose);font-weight:800;font-size:11px;letter-spacing:2px;position:relative;z-index:5">03 • COMPETENCES</p>
+<h2 style="font-size:24px;position:relative;z-index:5">Mes <span class="script" style="color:var(--rose);font-size:28px">compétences</span></h2>
+<p style="font-size:10px;color:rgba(255,255,255,.35);position:relative;z-index:5;margin-top:4px">Ce que je maîtrise • animation au scroll</p>
+
+<div style="display:grid;gap:14px;margin-top:20px;max-width:1100px;position:relative;z-index:5" class="grid2">
+
+<div class="card"><div style="display:flex;justify-content:space-between"><span style="font-size:12px;font-weight:600"><i class="fa-brands fa-html5" style="color:#E34F26;margin-right:8px"></i>HTML</span><span style="font-size:11px;color:var(--rose);font-weight:700">90%</span></div><div style="background:rgba(255,255,255,.08);height:7px;border-radius:10px;overflow:hidden;margin-top:8px"><div class="bar" data-w="90%" style="height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--rose2));border-radius:10px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)"></div></div></div>
+
+<div class="card"><div style="display:flex;justify-content:space-between"><span style="font-size:12px;font-weight:600"><i class="fa-brands fa-css3-alt" style="color:#1572B6;margin-right:8px"></i>CSS</span><span style="font-size:11px;color:var(--rose);font-weight:700">50%</span></div><div style="background:rgba(255,255,255,.08);height:7px;border-radius:10px;overflow:hidden;margin-top:8px"><div class="bar" data-w="50%" style="height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--rose2));border-radius:10px;transition:width 1.4s"></div></div></div>
+
+<div class="card"><div style="display:flex;justify-content:space-between"><span style="font-size:12px;font-weight:600"><i class="fa-brands fa-php" style="color:#777BB4;margin-right:8px"></i>PHP</span><span style="font-size:11px;color:var(--rose);font-weight:700">50%</span></div><div style="background:rgba(255,255,255,.08);height:7px;border-radius:10px;overflow:hidden;margin-top:8px"><div class="bar" data-w="50%" style="height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--rose2));border-radius:10px;transition:width 1.4s"></div></div></div>
+
+<div class="card"><div style="display:flex;justify-content:space-between"><span style="font-size:12px;font-weight:600"><i class="fa-solid fa-database" style="margin-right:8px"></i>MySQL</span><span style="font-size:11px;color:var(--rose);font-weight:700">95%</span></div><div style="background:rgba(255,255,255,.08);height:7px;border-radius:10px;overflow:hidden;margin-top:8px"><div class="bar" data-w="95%" style="height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--rose2));border-radius:10px;transition:width 1.4s"></div></div></div>
+
+</div>
+<style>
+.card{background:rgba(26,26,26,.9);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:16px;transition:.4s;backdrop-filter:blur(10px)}
+.card:hover{transform:translateY(-4px);border-color:rgba(255,143,171,.22);box-shadow:0 12px 32px rgba(255,143,171,.14)}
+@media(min-width:900px){.grid2{grid-template-columns:repeat(2,1fr)!important} #competences{padding:60px!important}}
+</style>
+</section>
+<section id="projets" class="animated-bg" style="padding:40px 20px">
+<div class="glow-orb orb1" style="opacity:.4"></div><div class="bokeh-ray two"></div>
+<p style="color:var(--rose);font-weight:800;font-size:11px;letter-spacing:2px;position:relative;z-index:5">04 • PROJETS</p>
+<h2 style="font-family:'Dancing Script',cursive;font-size:32px;color:#fff;position:relative;z-index:5">Mes <span style="color:var(--rose)">projets</span> <span style="font-family:'Poppins',sans-serif;font-size:9px;color:rgba(255,255,255,.3);letter-spacing:2px;margin-left:10px">HOVER POUR EFFET 3D</span></h2>
+
+<div style="display:grid;gap:18px;margin-top:22px;grid-template-columns:1fr;max-width:1100px;position:relative;z-index:5" class="proj-grid">
+
+<div class="proj-card">
+<div style="width:110px;height:110px;border-radius:16px;overflow:hidden;flex-shrink:0;position:relative"><img src="comexa.jpg" style="width:100%;height:100%;object-fit:cover"><span style="position:absolute;top:6px;left:6px;background:var(--rose);color:#000;font-size:7px;padding:3px 8px;border-radius:999px;font-weight:800">MARKETPLACE</span></div>
+<div style="flex:1"><h4 style="font-size:15px;font-weight:700">COMEXA</h4><p style="font-size:10px;color:rgba(255,255,255,.5);margin-top:4px;line-height:1.5">Plateforme de vente made in CI, paiement mobile, gestion vendeurs</p><div style="display:flex;gap:6px;margin-top:10px"><span style="font-size:7px;background:rgba(255,143,171,.15);color:var(--rose);padding:4px 8px;border-radius:999px">PHP</span><span style="font-size:7px;background:rgba(255,143,171,.15);color:var(--rose);padding:4px 8px;border-radius:999px">MySQL</span></div><a href="videos/comexa.mp4" target="_blank" style="margin-top:10px;display:inline-flex;font-size:10px;background:#fff;color:#000;padding:6px 14px;border-radius:999px;text-decoration:none;font-weight:700">Voir démo <i class="fa-solid fa-play" style="font-size:8px;margin-left:4px"></i></a></div>
+</div>
+
+<div class="proj-card">
+<div style="width:110px;height:110px;border-radius:16px;overflow:hidden;flex-shrink:0;position:relative"><img src="fournee.jpg" style="width:100%;height:100%;object-fit:cover"><span style="position:absolute;top:6px;left:6px;background:#fff;color:#000;font-size:7px;padding:3px 8px;border-radius:999px;font-weight:800">BOULANGERIE</span></div>
+<div style="flex:1"><h4 style="font-size:15px;font-weight:700">La Fournée Dorée</h4><p style="font-size:10px;color:rgba(255,255,255,.5);margin-top:4px;line-height:1.5">Site vitrine gourmand, commande WhatsApp direct 0566190469</p><div style="display:flex;gap:6px;margin-top:10px"><span style="font-size:7px;background:rgba(255,255,255,.08);padding:4px 8px;border-radius:999px">HTML</span><span style="font-size:7px;background:rgba(255,255,255,.08);padding:4px 8px;border-radius:999px">CSS</span></div><a href="https://ayamardcedric9-boop.github.io/boulangerie/" target="_blank" style="margin-top:10px;display:inline-flex;font-size:10px;background:var(--rose);color:#000;padding:6px 14px;border-radius:999px;text-decoration:none;font-weight:700">Site live <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:8px;margin-left:4px"></i></a></div>
+</div>
+
+</div>
+<style>
+.proj-card{background:rgba(26,26,26,.92);border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:14px;display:flex;gap:14px;backdrop-filter:blur(12px);transition:.45s cubic-bezier(.2,.8,.2,1)}
+.proj-card:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(255,143,171,.28);box-shadow:0 20px 50px rgba(255,143,171,.22)}
+@media(min-width:900px){.proj-grid{grid-template-columns:repeat(2,1fr)!important} #projets{padding:60px!important}}
+</style>
+</section>
+<!-- TIKTOK -->
+<section class="fade" style="padding:30px 20px;background:linear-gradient(135deg,rgba(255,143,171,.14),rgba(255,194,209,.06));border-top:1px solid rgba(255,143,171,.15);border-bottom:1px solid rgba(255,143,171,.15);text-align:center">
+<h2 style="font-size:18px"><i class="fa-brands fa-tiktok" style="color:var(--rose);margin-right:8px"></i>Rejoins-moi sur TikTok</h2>
+<p style="font-size:11px;color:rgba(255,255,255,.6);margin-top:6px"><b style="color:var(--rose)">@penielle.atto</b> - astuces dev, coulisses et motivation</p>
+<!-- NEWSLETTER - VERSION SIMPLE QUI MARCHE -->
+<form action="https://formsubmit.co/penielleatto73@gmail.com" method="POST" style="display:flex;gap:8px;margin-top:14px;max-width:380px">
+  <input type="hidden" name="_subject" value="Nouvel abonné newsletter portfolio">
+  <input type="hidden" name="_captcha" value="false">
+  
+  <input type="email" name="abonne" placeholder="Ton email" required
+  style="flex:1;background:#0F0F0F;border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:11px 16px;color:#fff;font-size:11px;outline:none">
+  
+  <button type="submit" style="background:linear-gradient(135deg,#FF8FAB,#FFC2D1);color:#000;border:none;padding:11px 18px;border-radius:999px;font-weight:800;font-size:11px;cursor:pointer">
+    S'abonner
+  </button>
+</form>
+</section>
+
+<!-- CONTACT AVEC FOND NOIR ANIMÉ CHIC -->
+<section id="contact" class="fade animated-bg" style="padding:36px 20px 70px">
+<div class="bokeh-ray"></div><div class="glow-orb orb2"></div><div class="glow-orb orb3" style="opacity:.5"></div>
+<div style="max-width:1100px;margin:0 auto;position:relative;z-index:5">
+<p style="color:var(--rose);font-weight:800;font-size:11px;letter-spacing:2px">07 — CONTACT</p>
+<h2 style="font-size:24px;margin-top:6px">Un projet en tête?<br><span class="script" style="color:var(--rose);font-size:28px">Parlons-en.</span></h2>
+<div style="display:grid;gap:22px;margin-top:24px" class="contact-grid">
+<div>
+<p style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.7">Basée à Abidjan, disponible pour stage, freelance et collaborations. Réponse rapide sur WhatsApp.</p>
+<div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap">
+<a href="https://wa.me/225566190469?text=Bonjour%20Penielle%20!%20Je%20viens%20de%20ton%20portfolio" target="_blank" class="social whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+<a href="https://www.tiktok.com/@penielle.atto" target="_blank" class="social"><i class="fa-brands fa-tiktok"></i></a>
+<a href="https://github.com/penielleatto" target="_blank" class="social"><i class="fa-brands fa-github"></i></a>
+<a href="https://www.linkedin.com/in/penielle-atto" target="_blank" class="social"><i class="fa-brands fa-linkedin-in"></i></a>
+</div>
+</div>
+<form action="https://formsubmit.co/penielleatto73@gmail.com" method="POST" class="form-chic" style="background:rgba(22,22,22,.92);border:1px solid rgba(255,143,171,.14);padding:20px;border-radius:24px;backdrop-filter:blur(16px);box-shadow:0 20px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.06)">
+
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Nouveau message portfolio Penielle">
+<input type="hidden" name="_template" value="table">
+
+<div style="margin-bottom:14px"><input name="nom" placeholder="Ton nom" required style="width:100%;background:#0F0F0F;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;color:#fff;font-size:11px;outline:none"></div>
+
+<div style="margin-bottom:14px"><input name="email" type="email" placeholder="Ton email" required style="width:100%;background:#0F0F0F;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;color:#fff;font-size:11px;outline:none"></div>
+
+<div style="margin-bottom:14px"><textarea name="message" placeholder="Ton message..." required style="width:100%;background:#0F0F0F;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;color:#fff;font-size:11px;min-height:90px;resize:none;outline:none"></textarea></div>
+
+<button type="submit" style="width:100%;background:linear-gradient(135deg,#FF8FAB,#FFC2D1);color:#000;border:none;padding:13px;border-radius:999px;font-weight:800;font-size:11px;cursor:pointer">Envoyer <i class="fa-solid fa-paper-plane" style="margin-left:6px"></i></button>
+</form>
+</div>
+</div>
+<style>@media(min-width:900px){#contact{padding:70px 60px!important}.contact-grid{grid-template-columns:1fr 1.2fr!important;gap:50px!important}}</style>
+</section>
+
+<!-- SCRIPTS -->
+<script>
+function toggleMenu(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show')}
+const roles=["Développeuse Web","Passionnée de Code","Créatrice Chic","BTS IDA 2024-26","Abidjan • CI • @penielle.atto"];let ri=0,ci=0,del=false;
+function typeEffect(){const el=document.getElementById('type');if(!el)return;const cur=roles[ri];if(!del){el.textContent=cur.slice(0,ci+1);ci++;if(ci===cur.length){setTimeout(()=>del=true,1400);}}else{el.textContent=cur.slice(0,ci-1);ci--;if(ci===0){del=false;ri=(ri+1)%roles.length;}}setTimeout(typeEffect,del?40:90)}typeEffect();
+window.addEventListener('scroll',()=>{
+  document.getElementById('progress').style.width=(scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+'%';
+  document.querySelectorAll('.fade').forEach(e=>{if(e.getBoundingClientRect().top<innerHeight*0.88)e.classList.add('show')});
+  document.querySelectorAll('.bar').forEach(b=>{if(b.getBoundingClientRect().top<innerHeight*0.9)b.style.width=b.dataset.w})
+});
+window.dispatchEvent(new Event('scroll'));
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+document.getElementById('newsletterForm')?.addEventListener('submit',e=>{e.preventDefault();toast('Merci! Abonnée: '+document.getElementById('newsEmail').value);e.target.reset()});
+</script>
+</body>
+</html>
